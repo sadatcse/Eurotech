@@ -3,11 +3,14 @@ import { siteConfig } from '@/config/site';
 import DarkPageHeader from '@/components/ui/DarkPageHeader';
 import Container from '@/components/ui/Container';
 import ContactForm from '@/components/forms/ContactForm';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'Contact Us',
-  description: `Get in touch with ${siteConfig.name}.`,
-};
+  description: `Contact ${siteConfig.name} for a quotation, site survey or product enquiry — call ${siteConfig.contact.phones.join(' / ')} or email ${siteConfig.contact.email}. Office in Kafrul, Dhaka.`,
+  path: '/contact',
+  keywords: ['EuroTech contact', 'ETP quotation Bangladesh', 'STP price Bangladesh'],
+});
 
 function InfoCard({ icon: Icon, title, children }) {
   return (

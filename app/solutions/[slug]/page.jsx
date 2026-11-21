@@ -8,6 +8,9 @@ import DarkPageHeader from '@/components/ui/DarkPageHeader';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import CtaBanner from '@/components/site/CtaBanner';
+import ShareButtons from '@/components/site/ShareButtons';
+import JsonLd from '@/components/seo/JsonLd';
+import { pageMetadata, serviceJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 export function generateStaticParams() {
   return SOLUTIONS.map((s) => ({ slug: s.slug }));
@@ -17,7 +20,12 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const solution = solutionBySlug(slug);
   if (!solution) return {};
-  return { title: solution.title, description: `${solution.summary} ${siteConfig.name}, Bangladesh.` };
+  return pageMetadata({
+    title: solution.title,
+    description: `${solution.summary} Design, construction and maintenance of ${solution.short} plants across Bangladesh by ${siteConfig.name}.`,
+    path: `/solutions/${solution.slug}`,
+    keywords: [solution.title, `${solution.short} Bangladesh`, `${solution.short} plant Dhaka`, `${solution.short} company in Bangladesh`],
+  });
 }
 
 export default async function SolutionPage({ params }) {
@@ -26,14 +34,13 @@ export default async function SolutionPage({ params }) {
   if (!solution) notFound();
 
   const phone = siteConfig.contact.phones[0];
+  const path = `/solutions/${solution.slug}`;
+  const breadcrumbs = [{ label: 'Solutions', href: '/solutions' }, { label: solution.short }];
 
   return (
     <div className="bg-canvas">
-      <DarkPageHeader
-        title={solution.title}
-        subtitle={solution.summary}
-        breadcrumbs={[{ label: 'Solutions', href: '/solutions' }, { label: solution.short }]}
-      />
+      <JsonLd data={[serviceJsonLd(solution), breadcrumbJsonLd([{ label: 'Home', href: '/' }, ...breadcrumbs], path)]} />
+      <DarkPageHeader title={solution.title} subtitle={solution.summary} breadcrumbs={breadcrumbs} />
 
       <Container className="grid gap-10 py-16 md:py-20 lg:grid-cols-[1fr_320px]">
         <article>
@@ -59,6 +66,7 @@ export default async function SolutionPage({ params }) {
               </div>
             ))}
           </div>
+          <ShareButtons title={`${solution.title} — ${siteConfig.name}`} path={path} label="Share this solution" className="mt-10 border-t border-line/10 pt-8" />
         </article>
 
         <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">

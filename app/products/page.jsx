@@ -4,11 +4,15 @@ import DarkPageHeader from '@/components/ui/DarkPageHeader';
 import Container from '@/components/ui/Container';
 import ProductCard from '@/components/site/ProductCard';
 import CtaBanner from '@/components/site/CtaBanner';
+import JsonLd from '@/components/seo/JsonLd';
+import { pageMetadata, itemListJsonLd } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'Products',
-  description: `ETP & STP machinery, flow meters, pumps, dosing systems, filtration media and treatment chemicals from ${siteConfig.name}.`,
-};
+  description: `ETP & STP machinery in Bangladesh — roots blowers, diffusers, flow meters, pumps, dosing systems, filtration media and treatment chemicals from ${siteConfig.name}.`,
+  path: '/products',
+  keywords: ['ETP machinery Bangladesh', 'water treatment equipment Bangladesh', 'water treatment chemicals Bangladesh'],
+});
 
 export default function ProductsPage() {
   const groups = PRODUCT_CATEGORIES.map((category) => ({
@@ -18,6 +22,7 @@ export default function ProductsPage() {
 
   return (
     <div className="bg-canvas">
+      <JsonLd data={itemListJsonLd('Products', PRODUCTS.map((p) => ({ name: p.name, href: `/products/${p.slug}` })))} />
       <DarkPageHeader
         title="Our"
         accent="Products"

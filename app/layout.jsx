@@ -3,22 +3,48 @@ import AppShell from '@/components/layout/AppShell';
 import { siteConfig } from '@/config/site';
 import { getCachedSetting } from '@/server/services/settings.service';
 import { DEFAULT_TIME_ZONE, setTimeZone } from '@/lib/timezone';
+import { organizationJsonLd, websiteJsonLd } from '@/lib/seo';
+import JsonLd from '@/components/seo/JsonLd';
+
+const defaultTitle = `${siteConfig.name} — ${siteConfig.slogan}`;
 
 export const metadata = {
   metadataBase: new URL(siteConfig.url),
-  // Home page: "EuroTech Corporation — We engineer it right"; other pages: "Page | EuroTech"
+  // Home page: "EuroTech Corporation — Total Solutions for STP & ETP"; other pages: "Page | EuroTech"
   title: {
-    default: `${siteConfig.name} — ${siteConfig.slogan}`,
+    default: defaultTitle,
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: 'Water & wastewater engineering',
+  alternates: { canonical: '/' },
+  formatDetection: { telephone: true, email: true, address: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
+  },
   openGraph: {
-    title: `${siteConfig.name} — ${siteConfig.slogan}`,
+    title: defaultTitle,
     description: siteConfig.description,
-    url: siteConfig.url,
+    url: '/',
     siteName: siteConfig.name,
-    locale: 'en_US',
+    locale: siteConfig.locale,
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: defaultTitle,
+    description: siteConfig.description,
+  },
+  verification: {
+    ...(siteConfig.verification.google && { google: siteConfig.verification.google }),
+    ...(siteConfig.verification.bing && { other: { 'msvalidate.01': siteConfig.verification.bing } }),
   },
 };
 
@@ -51,6 +77,7 @@ export default async function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       </head>
       <body suppressHydrationWarning>
         <AppShell timeZone={timeZone}>{children}</AppShell>

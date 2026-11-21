@@ -21,6 +21,14 @@ import ClientLogos from '@/components/site/ClientLogos';
 import TeamCard from '@/components/site/TeamCard';
 import Faq from '@/components/site/Faq';
 import CtaBanner from '@/components/site/CtaBanner';
+import ShareButtons from '@/components/site/ShareButtons';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({
+  description: siteConfig.description,
+  path: '/',
+  keywords: ['water treatment company in Bangladesh', 'ETP company in Bangladesh', 'STP company in Dhaka'],
+});
 
 const HIGHLIGHTS = [
   { icon: FaDraftingCompass, title: 'Design to Commissioning', text: 'Process selection, engineering, construction and start-up.' },
@@ -281,6 +289,7 @@ export default function HomePage() {
             <Link href="/contact" className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-blue-800 hover:bg-blue-50">
               Send a message <FaArrowRight aria-hidden />
             </Link>
+            <ShareButtons title={`${siteConfig.name} — ${siteConfig.slogan}`} path="/" label="Share our website" tone="dark" className="mt-8 border-t border-white/15 pt-6" />
           </aside>
         </Container>
       </section>

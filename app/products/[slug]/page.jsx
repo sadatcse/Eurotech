@@ -8,6 +8,9 @@ import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/site/SectionHeading';
 import ProductCard from '@/components/site/ProductCard';
+import ShareButtons from '@/components/site/ShareButtons';
+import JsonLd from '@/components/seo/JsonLd';
+import { pageMetadata, productJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -17,8 +20,14 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = productBySlug(slug);
   if (!product) return {};
+  const category = PRODUCT_CATEGORIES.find((c) => c.slug === product.category);
   const summary = product.description || product.specs.map(([k, v]) => `${k}: ${v}`).join(', ');
-  return { title: product.name, description: summary.slice(0, 160) };
+  return pageMetadata({
+    title: product.name,
+    description: `${product.name} in Bangladesh — ${summary}`,
+    path: `/products/${product.slug}`,
+    keywords: [product.name, `${product.name} Bangladesh`, `${product.name} price in Bangladesh`, category?.title].filter(Boolean),
+  });
 }
 
 export default async function ProductPage({ params }) {
@@ -29,13 +38,13 @@ export default async function ProductPage({ params }) {
   const category = PRODUCT_CATEGORIES.find((c) => c.slug === product.category);
   const related = PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 4);
   const { contact } = siteConfig;
+  const path = `/products/${product.slug}`;
+  const breadcrumbs = [{ label: 'Products', href: '/products' }, { label: category.title, href: `/products#${category.slug}` }, { label: product.name }];
 
   return (
     <div className="bg-canvas">
-      <DarkPageHeader
-        title={product.name}
-        breadcrumbs={[{ label: 'Products', href: '/products' }, { label: category.title, href: `/products#${category.slug}` }, { label: product.name }]}
-      />
+      <JsonLd data={[productJsonLd(product, category.title), breadcrumbJsonLd([{ label: 'Home', href: '/' }, ...breadcrumbs], path)]} />
+      <DarkPageHeader title={product.name} breadcrumbs={breadcrumbs} />
 
       <Container className="grid gap-10 py-16 md:py-20 lg:grid-cols-2">
         <div className={product.images.length > 1 ? 'grid grid-cols-2 gap-4' : ''}>
@@ -87,6 +96,8 @@ export default async function ProductPage({ params }) {
               </a>
             </div>
           </div>
+
+          <ShareButtons title={`${product.name} — ${siteConfig.name}`} path={path} label="Share this product" className="mt-8" />
         </div>
       </Container>
 

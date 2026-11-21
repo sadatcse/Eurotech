@@ -1,6 +1,8 @@
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 
+export const metadata = { title: 'Page not found', robots: { index: false, follow: true } };
+
 export default function NotFound() {
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center text-center">

@@ -7,15 +7,20 @@ import Container from '@/components/ui/Container';
 import SectionHeading from '@/components/site/SectionHeading';
 import SolutionCard from '@/components/site/SolutionCard';
 import CtaBanner from '@/components/site/CtaBanner';
+import JsonLd from '@/components/seo/JsonLd';
+import { pageMetadata, itemListJsonLd } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'Solutions',
-  description: `ETP, STP, RO, softener, ZLD and swimming pool water treatment solutions from ${siteConfig.name}.`,
-};
+  description: `Effluent (ETP), sewage (STP), RO, water softener, ZLD and swimming pool treatment plants — designed, built and maintained across Bangladesh by ${siteConfig.name}.`,
+  path: '/solutions',
+  keywords: ['water treatment solutions Bangladesh', 'wastewater treatment plant Bangladesh'],
+});
 
 export default function SolutionsPage() {
   return (
     <div className="bg-canvas">
+      <JsonLd data={itemListJsonLd('Solutions', SOLUTIONS.map((s) => ({ name: s.title, href: `/solutions/${s.slug}` })))} />
       <DarkPageHeader
         title="Water & Wastewater"
         accent="Solutions"

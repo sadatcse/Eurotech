@@ -8,11 +8,14 @@ import SectionHeading from '@/components/site/SectionHeading';
 import ClientLogos from '@/components/site/ClientLogos';
 import TeamCard from '@/components/site/TeamCard';
 import CtaBanner from '@/components/site/CtaBanner';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'About Us',
-  description: `Who we are — the vision, mission, core values and leadership of ${siteConfig.name}.`,
-};
+  description: `Who we are — the vision, mission, core values and team of ${siteConfig.name}, a Dhaka-based ETP, STP and water treatment engineering company.`,
+  path: '/about',
+  keywords: ['about EuroTech Corporation', 'water treatment engineers Bangladesh'],
+});
 
 const VALUE_ICONS = [FaAward, FaLeaf, FaLightbulb, FaHandshake, FaShieldAlt, FaUserCog];
 
