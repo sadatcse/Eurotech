@@ -10,7 +10,7 @@ const defaultTitle = `${siteConfig.name} — ${siteConfig.slogan}`;
 
 export const metadata = {
   metadataBase: new URL(siteConfig.url),
-  // Home page: "EuroTech Corporation — Total Solutions for STP & ETP"; other pages: "Page | EuroTech"
+  // Home page: "EuroTech Corporation — Total Solutions for Water Management"; other pages: "Page | EuroTech"
   title: {
     default: defaultTitle,
     template: `%s | ${siteConfig.shortName}`,

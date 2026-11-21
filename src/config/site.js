@@ -4,7 +4,7 @@ export const siteConfig = {
   shortName: 'EuroTech',
   tagline: 'We engineer it right.',
   // Used in the browser-tab / search-result title of the home page and in link previews
-  slogan: 'Total Solutions for STP & ETP',
+  slogan: 'Total Solutions for Water Management',
   description:
     'Engineering and technology solutions for water and wastewater — ETP, STP, WTP, RO, softener and ZLD plants, ETP/STP machinery, instrumentation, filtration media and treatment chemicals across Bangladesh.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://eurotechbd.com',
@@ -30,6 +30,8 @@ export const siteConfig = {
     'wastewater treatment Dhaka',
     'EuroTech Corporation',
   ],
+  // Google Tag Manager container — loaded after the page finishes loading. Set to '' to turn it off.
+  googleTagId: process.env.NEXT_PUBLIC_GOOGLE_TAG_ID ?? 'GTM-TW3LC9RN',
   // Search Console / Bing ownership codes — set these env vars after verifying the site
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',

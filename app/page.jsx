@@ -60,7 +60,7 @@ export default function HomePage() {
               {siteConfig.tagline}
             </p>
             <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
-              Total Solutions for <span className="text-sky-400">STP &amp; ETP</span>
+              Total Solutions for <span className="text-sky-400">Water Management</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-blue-100">
               Design, construction and management of effluent, sewage and water treatment plants — with the blowers, pumps,

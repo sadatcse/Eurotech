@@ -7,6 +7,7 @@ import { setTimeZone } from '@/lib/timezone';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import NavigationProgress from './NavigationProgress';
+import GoogleTag from '@/components/seo/GoogleTag';
 
 // Records one visit per browser session (Dashboard → Traffic Analytics)
 function useVisitorLog(enabled) {
@@ -64,6 +65,7 @@ export default function AppShell({ children, timeZone }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <GoogleTag />
     </div>
   );
 }
